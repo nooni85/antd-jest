@@ -1,9 +1,13 @@
 module.exports = {
-  preset: 'ts-jest/presets/js-with-babel-esm',
+  preset: 'ts-jest/presets/js-with-babel',
   testEnvironment: 'node',
+  transformIgnorePatterns: ['node_modules/(?!@ant-design)'],
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/__mocks__/fileMock.js',
+    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
+  },
   transform: {
-    // '^.+\\.[tj]sx?$' to process js/ts with `ts-jest`
-    // '^.+\\.m?[tj]sx?$' to process js/ts/mjs/mts with `ts-jest`
     '^.+\\.tsx?$': [
       'ts-jest',
       {
