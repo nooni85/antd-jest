@@ -26,7 +26,7 @@ module.exports = {
     '^.+\\.(css|style|less|sass|scss|png|jpg|ttf|woff|woff2|svg)$': 'jest-transform-stub',
   },
   transform: {
-    '^.+\\.(tsx|ts)?$': [
+    '^.+\\.(ts|tsx)$': [
       'ts-jest',
       {
         tsconfig: './tsconfig.test.json',
