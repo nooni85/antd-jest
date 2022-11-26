@@ -1,7 +1,7 @@
-import Index from './index';
 import { render, screen } from '@testing-library/react';
+import Test from './Test';
 
 it('renders welcome message', () => {
-  render(<Index />);
+  render(<Test />);
   expect(screen.getByText('Learn React')).toBeInTheDocument();
 });

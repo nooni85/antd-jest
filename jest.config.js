@@ -1,22 +1,36 @@
+const compileModules = ['@ant-design'];
+
+const ignoreList = [];
+
+// cnpm use `_` as prefix
+['', '_'].forEach((prefix) => {
+  compileModules.forEach((module) => {
+    ignoreList.push(`${prefix}${module}`);
+  });
+});
+
+const transformIgnorePatterns = [
+  // Ignore modules without es dir.
+  // Update: @babel/runtime should also be transformed
+  `/node_modules/(?!${ignoreList.join('|')})[^/]+?/(?!(es)/)`,
+];
+
 module.exports = {
-  preset: 'ts-jest/presets/js-with-babel',
-  testEnvironment: 'node',
-  transformIgnorePatterns: [
-    '<rootDir>/node_modules/.pnpm/(?!(ant-design|package-b)@)',
-  ],
+  verbose: true,
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/supports/setupTests.js'],
+  transformIgnorePatterns,
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/__mocks__/fileMock.js',
-    '^.+\\.(css|style|less|sass|scss|png|jpg|ttf|woff|woff2|svg)$': 'jest-transform-stub'
+    '^.+\\.(css|style|less|sass|scss|png|jpg|ttf|woff|woff2|svg)$': 'jest-transform-stub',
   },
-  // transform: {
-  //   '^.+\\.tsx?$': [
-  //     'ts-jest',
-  //     {
-  //       tsconfig: {
-  //         jsx: 'react-jsx',
-  //       },
-  //     },
-  //   ],
-  // },
+  transform: {
+    '^.+\\.(tsx|ts)?$': [
+      'ts-jest',
+      {
+        tsconfig: './tsconfig.test.json',
+      },
+    ],
+  },
 };
